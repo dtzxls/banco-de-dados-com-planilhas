@@ -88,27 +88,6 @@ Com isso, o teste cobre o fluxo completo de uma operação de cadastro: preenche
 | Google Sheets | persistência dos dados tabulares |
 | Google Drive | armazenamento dos anexos |
 
-## Estrutura do repositório
-
-```text
-.
-├── index.html   # estrutura da interface
-├── styles.css   # estilos e responsividade
-├── script.js    # comportamento e integração com a API
-└── README.md    # documentação do projeto
-```
-
-Para guardar as imagens usadas nesta documentação, a estrutura sugerida é:
-
-```text
-docs/
-└── images/
-    ├── tela-principal.png
-    ├── novo-registro.png
-    ├── planilha-google.png
-    └── pasta-drive.png
-```
-
 ## Capturas de tela
 
 ### Tela principal
