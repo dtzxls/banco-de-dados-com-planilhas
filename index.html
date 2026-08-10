@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SheetBase · Teste de banco</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <p class="eyebrow"></p>
+    <h1 class="title"></h1>
+    <p class="intro"></p>
+    <div class="bar"><input id="search" class="search" placeholder="⌕  Buscar registros..." /><button class="btn ghost" id="reload">↻ Atualizar tabela</button></div>
+    <section class="card"><div class="table-scroll"><table><thead><tr><th>Nome</th><th>Categoria</th><th>Descrição</th><th>Arquivo</th><th>Data</th></tr></thead><tbody id="rows"></tbody></table></div><div id="empty" class="empty" hidden>Nenhum registro encontrado.</div></section>
+    <section class="card form-area"><div class="form-head"><div><h2>Novo registro</h2><p>Os dados serão enviados para sua planilha e o arquivo para o Drive.</p></div></div>
+      <form id="recordForm"><div class="grid"><div class="field"><label for="name">NOME *</label><input id="name" required placeholder="Ex.: Projeto Aurora" /></div><div class="field"><label for="category">CATEGORIA</label><select id="category"><option>Documento</option><option>Contrato</option><option>Relatório</option><option>Outro</option></select></div><div class="field full"><label for="description">DESCRIÇÃO</label><textarea id="description" placeholder="Adicione detalhes sobre este registro..."></textarea></div><div class="field full"><label for="file">ARQUIVO</label><div class="filebox"><input id="file" type="file" accept=".doc,.docx,.pdf,.xls,.xlsx,.png,.jpg" /><div class="help">DOCX, PDF, planilhas ou imagens · até 10 MB</div></div></div></div><div class="form-actions"><button type="reset" class="btn ghost">Limpar</button><button class="btn primary" type="submit">Salvar registro →</button></div></form>
+    </section>
+  </main><div id="toast" class="toast"></div>
+  <script src="script.js"></script>
+</body></html>
