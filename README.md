@@ -101,6 +101,7 @@ Com isso, o teste cobre o fluxo completo de uma operação de cadastro: preenche
 <p align="center">
   <img src="fotos do projeto/planilha.png" width="900">
 </p>
+
 ### Arquivos no Google Drive
 
 <p align="center">
@@ -207,24 +208,52 @@ O código do back-end não está incluído no arquivo `index.html`. Use a área 
 <details>
 <summary><strong>Clique para exibir o espaço reservado ao Apps Script</strong></summary>
 
-```javascript
-/**
- * Cole aqui o código do Google Apps Script.
- *
- * Estrutura esperada:
- * - doGet(): lê a planilha e retorna { ok, records };
- * - doPost(e): interpreta e valida o JSON recebido;
- * - função de upload: salva o Base64 na pasta do Drive;
- * - função de resposta: devolve JSON com ContentService;
- * - tratamento de erros: devolve { ok: false, message }.
- */
+const SPREADSHEET_ID = 'id da planilha';
+const FOLDER_ID = 'id da pasta do drive';
 
-const SPREADSHEET_ID = 'ID_DA_PLANILHA';
-const SHEET_NAME = 'NOME_DA_ABA';
-const DRIVE_FOLDER_ID = 'ID_DA_PASTA';
+function doGet() {
+  const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName('Registros');
+  const values = sheet.getDataRange().getDisplayValues();
+  const headers = values.shift();
+  const records = values.map(row => {
+    const record = Object.fromEntries(headers.map((h, i) => [h.trim(), row[i]]));
 
-// Cole a implementação abaixo desta linha.
-```
+    // Recupera o nome real diretamente do Drive. Isso também corrige registros
+    // antigos que possuem File ID, mas não possuem "Nome do arquivo" preenchido.
+    if (!record['Nome do arquivo'] && record['File ID']) {
+      try {
+        record['Nome do arquivo'] = DriveApp.getFileById(record['File ID']).getName();
+      } catch (error) {
+        record['Nome do arquivo'] = 'Arquivo';
+      }
+    }
+
+    return record;
+  });
+
+  return json({ ok: true, records });
+}
+
+function doPost(e) {
+  const p = JSON.parse(e.postData.contents);
+  const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName('Registros');
+  let fileUrl = '', fileId = '', savedFileName = '';
+
+  if (p.fileBase64 && p.fileName) {
+    const blob = Utilities.newBlob(Utilities.base64Decode(p.fileBase64), p.fileType, p.fileName);
+    const file = DriveApp.getFolderById(FOLDER_ID).createFile(blob);
+    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    fileUrl = file.getUrl();
+    fileId = file.getId();
+    savedFileName = file.getName();
+  }
+  sheet.appendRow([p.name || '', p.category || '', p.description || '', fileUrl, new Date(), fileId, savedFileName]);
+  return json({ ok: true, fileUrl, fileId, fileName: savedFileName });
+}
+
+function json(data) {
+  return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON);
+}
 
 </details>
 
