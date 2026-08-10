@@ -92,35 +92,20 @@ Com isso, o teste cobre o fluxo completo de uma operação de cadastro: preenche
 
 ### Tela principal
 
-> 📷 **Espaço reservado:** adicione uma imagem da tabela e da barra de pesquisa.
-
-<!-- Quando a imagem existir, remova este comentário:
-![Tela principal do SheetBase](./docs/images/tela-principal.png)
--->
-
-### Cadastro de um registro
-
-> 📷 **Espaço reservado:** adicione uma imagem do formulário preenchido.
-
-<!--
-![Formulário de novo registro](./docs/images/novo-registro.png)
--->
+<p align="center">
+  <img src="fotos do projeto/site.png" width="900">
+</p>
 
 ### Dados no Google Sheets
 
-> 📷 **Espaço reservado:** adicione uma imagem das linhas salvas na planilha. Oculte dados pessoais antes de publicar.
-
-<!--
-![Registros armazenados no Google Sheets](./docs/images/planilha-google.png)
--->
-
+<p align="center">
+  <img src="fotos do projeto/planilha.png" width="900">
+</p>
 ### Arquivos no Google Drive
 
-> 📷 **Espaço reservado:** adicione uma imagem da pasta usada para os anexos. Oculte nomes e informações sensíveis.
-
-<!--
-![Arquivos armazenados no Google Drive](./docs/images/pasta-drive.png)
--->
+<p align="center">
+  <img src="fotos do projeto/drive.png" width="900">
+</p>
 
 ## Como executar o front-end
 
